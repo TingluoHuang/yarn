@@ -5,7 +5,7 @@ const {satisfies} = require('semver');
 
 const {
   fs: {createTemporaryFolder, readFile, readJson, writeFile, writeJson},
-  tests: {getPackageDirectoryPath},
+  tests: {getPackageDirectoryPath, testIf},
 } = require('pkg-tests-core');
 
 module.exports = makeTemporaryEnv => {
@@ -724,7 +724,8 @@ module.exports = makeTemporaryEnv => {
       ),
     );
 
-    test(
+    testIf(
+      () => process.platform !== 'win32',
       `it should generate a file that can be used as an executable to resolve a request (valid request)`,
       makeTemporaryEnv(
         {
@@ -753,7 +754,8 @@ module.exports = makeTemporaryEnv => {
       ),
     );
 
-    test(
+    testIf(
+      () => process.platform !== `win32`,
       `it should generate a file that can be used as an executable to resolve a request (builtin request)`,
       makeTemporaryEnv(
         {
@@ -777,7 +779,8 @@ module.exports = makeTemporaryEnv => {
       ),
     );
 
-    test(
+    testIf(
+      () => process.platform !== `win32`,
       `it should generate a file that can be used as an executable to resolve a request (invalid request)`,
       makeTemporaryEnv(
         {
