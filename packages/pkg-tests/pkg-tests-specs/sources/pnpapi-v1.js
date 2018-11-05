@@ -78,7 +78,7 @@ module.exports = makeTemporaryEnv => {
 
             await expect(
               source(`require('pnpapi').resolveRequest('fs', '${path}/', {considerBuiltins: false})`),
-            ).resolves.toEqual(`${path}/fs/index.js`);
+            ).resolves.toEqual(normalize(`${path}/fs/index.js`));
           },
         ),
       );
@@ -92,7 +92,7 @@ module.exports = makeTemporaryEnv => {
 
           await expect(
             source(`require('pnpapi').resolveRequest('./foo', '${path}/', {extensions: ['.bar']})`),
-          ).resolves.toEqual(`${path}/foo.bar`);
+          ).resolves.toEqual(normalize(`${path}/foo.bar`));
         }),
       );
     });
