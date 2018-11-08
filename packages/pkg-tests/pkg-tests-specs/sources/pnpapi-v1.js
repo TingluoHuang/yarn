@@ -56,7 +56,9 @@ module.exports = makeTemporaryEnv => {
         makeTemporaryEnv({}, {plugNPlay: true}, async ({path, run, source}) => {
           await run(`install`);
 
-          await expect(source(`require('pnpapi').resolveRequest('fs', '${path}/')`)).resolves.toEqual(null);
+          await expect(
+            source(`require('pnpapi').resolveRequest('fs', ${JSON.stringify(path)} + '/')`),
+          ).resolves.toEqual(null);
         }),
       );
 
@@ -77,7 +79,9 @@ module.exports = makeTemporaryEnv => {
             await run(`install`);
 
             await expect(
-              source(`require('pnpapi').resolveRequest('fs', '${path}/', {considerBuiltins: false})`),
+              source(
+                `require('pnpapi').resolveRequest('fs', ${JSON.stringify(path)} + '/', {considerBuiltins: false})`,
+              ),
             ).resolves.toEqual(normalize(`${path}/fs/index.js`));
           },
         ),
@@ -91,7 +95,7 @@ module.exports = makeTemporaryEnv => {
           await run(`install`);
 
           await expect(
-            source(`require('pnpapi').resolveRequest('./foo', '${path}/', {extensions: ['.bar']})`),
+            source(`require('pnpapi').resolveRequest('./foo', ${JSON.stringify(path)} + '/', {extensions: ['.bar']})`),
           ).resolves.toEqual(normalize(`${path}/foo.bar`));
         }),
       );
