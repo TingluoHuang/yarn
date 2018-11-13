@@ -17,5 +17,5 @@ steps:
     yarn
   displayName: 'Install the acceptance tests'
 
-- script: ./bin/yarn --cwd packages/pkg-tests jest yarn.test.js --reporters=default
+- script: yarn test-only --maxWorkers 3
   displayName: 'Run the acceptance tests'
