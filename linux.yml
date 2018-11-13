@@ -1,0 +1,37 @@
+resources:
+  containers:
+    container: yarn
+    image: yarnpkg/dev:latest
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  container: yarn
+  steps:
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: 10.x
+    displayName: 'Install Node.js'
+
+  - bash: |
+      yarn
+      yarn run build
+      ls -lhR bin
+      ls -lhR lib
+    displayName: 'Install and build'
+
+  - script: |
+      yarn add scrollin
+      yarn add https://git@github.com/stevemao/left-pad.git
+      yarn add https://github.com/bestander/chrome-app-livereload.git
+      yarn add bestander/chrome-app-livereload
+      yarn add https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
+      yarn add react-scripts@1.0.13
+  - script: |
+      cd packages/pkg-tests
+      yarn
+    displayName: 'Install the acceptance tests'
+
+  - script: yarn test-only --maxWorkers 3
+    displayName: 'Run the acceptance tests'
