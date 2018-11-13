@@ -27,3 +27,9 @@ steps:
 
 - script: yarn test-only --maxWorkers 3
   displayName: 'Run the acceptance tests'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: 'C:\Users\VSSADM~1\AppData\Local\Temp'
+  condition: eq(variables['Agent.OS'], 'Windows_NT')
+    
