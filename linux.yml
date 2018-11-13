@@ -4,8 +4,7 @@ resources:
     image: yarnpkg/dev:latest
 jobs:
 - job: Linux
-  pool:
-    vmImage: 'Ubuntu 16.04'
+  pool: default
   container: yarn
   steps:
 
