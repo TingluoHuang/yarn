@@ -13,12 +13,12 @@ steps:
   displayName: 'Install and build'
   
 - script: |
-    yarn add scrollin (2131ms)
-    yarn add https://git@github.com/stevemao/left-pad.git (611ms)
+    yarn add scrollin
+    yarn add https://git@github.com/stevemao/left-pad.git
     yarn add https://github.com/bestander/chrome-app-livereload.git
     yarn add bestander/chrome-app-livereload
-    yarn add https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz (46725ms)
-    yarn add react-scripts@1.0.13 (11626ms)
+    yarn add https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
+    yarn add react-scripts@1.0.13
 
 - script: |
     cd packages/pkg-tests
