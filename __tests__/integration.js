@@ -43,8 +43,8 @@ function addTest(pattern, {strictPeers} = {strictPeers: false}, yarnArgs: Array<
     if (strictPeers) {
       expect(result.stderr).not.toMatch(/^warning .+ peer dependency/gm);
     }
-
-    await fs.unlink(cwd);
+    console.log(cwd)
+    //await fs.unlink(cwd);
   });
 }
 
