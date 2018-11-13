@@ -1,6 +1,6 @@
 resources:
   containers:
-    container: yarn
+  - container: yarn
     image: yarnpkg/dev:latest
 jobs:
 - job: Linux
