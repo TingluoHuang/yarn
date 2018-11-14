@@ -5,7 +5,7 @@ resources:
 jobs:
 - job: Linux
   pool: default
-  container: yarn
+  #container: yarn
   steps:
 
   - task: NodeTool@0
