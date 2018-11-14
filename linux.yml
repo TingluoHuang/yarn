@@ -5,6 +5,8 @@ resources:
 jobs:
 - job: Linux
   pool: default
+  workspace:
+    clean: all
   #container: yarn
   steps:
 
@@ -20,13 +22,6 @@ jobs:
       ls -lhR lib
     displayName: 'Install and build'
 
-  - script: |
-      yarn add scrollin
-      yarn add https://git@github.com/stevemao/left-pad.git
-      yarn add https://github.com/bestander/chrome-app-livereload.git
-      yarn add bestander/chrome-app-livereload
-      yarn add https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
-      yarn add react-scripts@1.0.13
   - script: |
       cd packages/pkg-tests
       yarn
