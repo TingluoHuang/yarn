@@ -18,28 +18,31 @@ install_steps: &install_steps
     - run:
         name: ad-hoc
         command: printenv|sort
+    - run:
+        name: ad-hoc
+        command: cat /etc/os-releases
     - *attach_workspace
-    - restore_cache:
-        name: Restore node_modules cache
-        keys:
-        # WARNING: add `{{ arch }}` into the keys below and separate the installation steps
-        #          for Linux and macOS if you ever need platform-specific dependencies
-        #          (anything using node-gyp etc.)
-          - v2-node-{{ .Branch }}-{{ checksum "yarn.lock" }}
-          - v2-node-{{ .Branch }}-
-          - v2-node-
+    # - restore_cache:
+    #     name: Restore node_modules cache
+    #     keys:
+    #     # WARNING: add `{{ arch }}` into the keys below and separate the installation steps
+    #     #          for Linux and macOS if you ever need platform-specific dependencies
+    #     #          (anything using node-gyp etc.)
+    #       - v2-node-{{ .Branch }}-{{ checksum "yarn.lock" }}
+    #       - v2-node-{{ .Branch }}-
+    #       - v2-node-
     - run:
         name: Install Dependencies
         command: yarn install --frozen-lockfile
-    - save_cache:
-        name: Save node_modules cache
-        key: v2-node-{{ .Branch }}-{{ checksum "yarn.lock" }}
-        paths:
-          - node_modules/
-    - persist_to_workspace:
-        root: ~/project
-        paths:
-          - yarn
+    # - save_cache:
+    #     name: Save node_modules cache
+    #     key: v2-node-{{ .Branch }}-{{ checksum "yarn.lock" }}
+    #     paths:
+    #       - node_modules/
+    # - persist_to_workspace:
+    #     root: ~/project
+    #     paths:
+    #       - yarn
 
 test_build: &test_build
   run:
@@ -71,32 +74,6 @@ jobs:
   install:
     <<: *docker_defaults
     <<: *install_steps
-  lint:
-    <<: *docker_defaults
-    steps:
-      - *attach_workspace
-      - run:
-          name: Lint
-          command: yarn lint
-  build:
-    <<: *docker_defaults
-    steps:
-      - *attach_workspace
-      - run:
-          name: Build distribution
-          command: |
-            if [ "$CIRCLE_BRANCH" == 'master' ]; then
-              ./scripts/set-dev-version.js
-            fi;
-            yarn build-dist
-            ./scripts/build-deb.sh
-      - store_artifacts:
-          path: artifacts/
-          destination: yarnpkg
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - yarn
   test-linux-node10:
     <<: *docker_defaults
     <<: *test_steps
@@ -108,10 +85,10 @@ workflows:
     jobs:
       - install:
           filters: *default_filters
-      - lint:
-          filters: *default_filters
-          requires:
-            - install
+      # - lint:
+      #     filters: *default_filters
+      #     requires:
+      #       - install
 #      - test-pkg-tests-linux-node10:
 #          filters: *default_filters
 #          requires:
