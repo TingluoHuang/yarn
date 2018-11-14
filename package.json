@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "yarn",
   "installationMethod": "unknown",
   "version": "1.13.0-0",
@@ -141,7 +141,7 @@
       "dist/"
     ],
     "testPathIgnorePatterns": [
-      "__tests__/(fixtures|__mocks__)/",
+      "__tests__/(fixtures|__mocks__|commands|registries|reporters|resolvers|util)/",
       "updates/",
       "_(temp|mock|install|init|helpers).js$",
       "packages/pkg-tests"
