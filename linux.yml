@@ -29,3 +29,9 @@ jobs:
 
   - script: yarn test-only -u
     displayName: 'Run the acceptance tests'
+  
+  - script: |
+      mkdir test_temp
+      cd test_temp
+      echo "{\"name\":\"test\",\"license\":\"MIT\"}" > package.json
+      yarn add https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz --cache-folder ./cache

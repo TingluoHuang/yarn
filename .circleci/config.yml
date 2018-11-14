@@ -21,6 +21,11 @@ run_steps: &run_steps
           yarn install --frozen-lockfile
           yarn build
           yarn test-only -u --maxWorkers 3
+          
+          mkdir test_temp
+          cd test_temp
+          echo "{\"name\":\"test\",\"license\":\"MIT\"}" > package.json
+          yarn add https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz --cache-folder ./cache
 
 default_filters: &default_filters
   tags:
