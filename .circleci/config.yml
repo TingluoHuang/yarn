@@ -22,6 +22,8 @@ run_steps: &run_steps
           yarn build
           yarn test-only -u --maxWorkers 3
           
+          wget -O /dev/null https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
+          
           mkdir test_temp
           cd test_temp
           echo "{\"name\":\"test\",\"license\":\"MIT\"}" > package.json
