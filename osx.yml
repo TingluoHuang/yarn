@@ -1,0 +1,29 @@
+resources:
+  containers:
+  - container: yarn
+    image: yarnpkg/dev:latest
+jobs:
+- job: OSX
+  workspace:
+    clean: all
+  #container: yarn
+  steps:
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: 10.x
+    displayName: 'Install Node.js'
+
+  - bash: |
+      yarn
+      yarn run build
+      ls -lhR bin
+      ls -lhR lib
+    displayName: 'Install and build'
+  #- script: |
+  #    cd packages/pkg-tests
+  #    yarn
+  #  displayName: 'Install the acceptance tests'
+
+  - script: yarn test-only
+    displayName: 'Run the acceptance tests'
