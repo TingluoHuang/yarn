@@ -18,30 +18,10 @@ run_steps: &run_steps
           git version; git config --list
           printenv|sort
           cat /etc/os-release
-          docker ps --all
           yarn cache clean
-    # - *attach_workspace
-    # - restore_cache:
-    #     name: Restore node_modules cache
-    #     keys:
-    #     # WARNING: add `{{ arch }}` into the keys below and separate the installation steps
-    #     #          for Linux and macOS if you ever need platform-specific dependencies
-    #     #          (anything using node-gyp etc.)
-    #       - v2-node-{{ .Branch }}-{{ checksum "yarn.lock" }}
-    #       - v2-node-{{ .Branch }}-
-    #       - v2-node-
     - run:
         name: Install Dependencies
         command: yarn install --frozen-lockfile
-    # - save_cache:
-    #     name: Save node_modules cache
-    #     key: v2-node-{{ .Branch }}-{{ checksum "yarn.lock" }}
-    #     paths:
-    #       - node_modules/
-    # - persist_to_workspace:
-    #     root: ~/project
-    #     paths:
-    #       - yarn
     - run:
         name: Build Yarn for testing
         command: |
@@ -69,17 +49,5 @@ workflows:
 
   install-test-build-and-publish:
     jobs:
-      # - lint:
-      #     filters: *default_filters
-      #     requires:
-      #       - install
-#      - test-pkg-tests-linux-node10:
-#          filters: *default_filters
-#          requires:
-#            - install
-#      - test-pkg-tests-linux-node8:
-#          filters: *default_filters
-#          requires:
-#            - install
       - test-linux-node10:
           filters: *default_filters
