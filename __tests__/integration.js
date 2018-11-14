@@ -87,7 +87,9 @@ async function runYarn(args: Array<string> = [], options: Object = {}): Promise<
   }
   options['env']['FORCE_COLOR'] = 0;
   const {stdout, stderr} = await execa.shell(sh`${path.resolve(__dirname, '../bin/yarn')} ${args}`, options);
-
+  
+  console.log('Finished:');
+  Date.now();
   return [stdout, stderr];
 }
 
@@ -139,13 +141,17 @@ async function runYarn(args: Array<string> = [], options: Object = {}): Promise<
 // });
 
 test('--mutex network', async () => {
+  console.log('Start:');
+  Date.now();
   const cwd = await makeTemp();
 
   const port = getRandomPort();
   await fs.writeFile(path.join(cwd, '.yarnrc'), `--mutex "network:${port}"\n`);
 
   const promises = [];
-
+  
+  console.log('Start loop:');
+  Date.now();
   for (let t = 0; t < 40; ++t) {
     const subCwd = path.join(cwd, String(t));
 
@@ -156,46 +162,48 @@ test('--mutex network', async () => {
         scripts: {test: 'node -e "setTimeout(function(){}, process.argv[1])"'},
       }),
     );
-
+    
+    console.log('Start loop:' + t.toString());
+    Date.now();
     promises.push(runYarn(['run', 'test', '100'], {cwd: subCwd}));
   }
 
   await Promise.all(promises);
 });
 
-test('--mutex network with busy port', async () => {
-  const port = getRandomPort();
+// test('--mutex network with busy port', async () => {
+  // const port = getRandomPort();
 
-  const server = http.createServer((request, response) => {
-    response.writeHead(200);
-    response.end("I'm a broken JSON string to crash Yarn network mutex.");
-  });
-  server.listen({
-    port,
-    host: 'localhost',
-  });
+  // const server = http.createServer((request, response) => {
+    // response.writeHead(200);
+    // response.end("I'm a broken JSON string to crash Yarn network mutex.");
+  // });
+  // server.listen({
+    // port,
+    // host: 'localhost',
+  // });
 
-  const cwd = await makeTemp();
-  await fs.writeFile(
-    path.join(cwd, 'package.json'),
-    JSON.stringify({
-      scripts: {test: 'node -e "setTimeout(function(){}, process.argv[1])"'},
-    }),
-  );
+  // const cwd = await makeTemp();
+  // await fs.writeFile(
+    // path.join(cwd, 'package.json'),
+    // JSON.stringify({
+      // scripts: {test: 'node -e "setTimeout(function(){}, process.argv[1])"'},
+    // }),
+  // );
 
-  let mutexError;
-  try {
-    await runYarn(['--mutex', `network:${port}`, 'run', 'test', '100'], {cwd});
-  } catch (error) {
-    mutexError = error;
-  } finally {
-    server.close();
-  }
+  // let mutexError;
+  // try {
+    // await runYarn(['--mutex', `network:${port}`, 'run', 'test', '100'], {cwd});
+  // } catch (error) {
+    // mutexError = error;
+  // } finally {
+    // server.close();
+  // }
 
-  expect(mutexError).toBeDefined();
-  invariant(mutexError != null, 'mutexError should be defined at this point otherwise Jest will throw above');
-  expect(mutexError.message).toMatch(new RegExp(en.mutexPortBusy.replace(/\$\d/g, '\\d+')));
-});
+  // expect(mutexError).toBeDefined();
+  // invariant(mutexError != null, 'mutexError should be defined at this point otherwise Jest will throw above');
+  // expect(mutexError.message).toMatch(new RegExp(en.mutexPortBusy.replace(/\$\d/g, '\\d+')));
+// });
 
 // describe('--registry option', () => {
   // test('--registry option with npm registry', async () => {
