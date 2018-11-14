@@ -5,10 +5,6 @@ docker_defaults: &docker_defaults
     - image: yarnpkg/dev:latest
   working_directory: ~/project/yarn
 
-attach_workspace: &attach_workspace
-  attach_workspace:
-      at: ~/project
-
 run_steps: &run_steps
   steps:
     - run:
@@ -32,6 +28,7 @@ default_filters: &default_filters
 
 jobs:
   test-linux-node10:
+    <<: *docker_defaults
     <<: *run_steps
 
 workflows:
