@@ -20,7 +20,7 @@ install_steps: &install_steps
         command: printenv|sort
     - run:
         name: ad-hoc
-        command: cat /etc/os-releases
+        command: cat /etc/os-release
     # - *attach_workspace
     # - restore_cache:
     #     name: Restore node_modules cache
