@@ -14,13 +14,12 @@ run_steps: &run_steps
     - checkout
     - run:
         name: ad-hoc
-        command: git version; git config --list
-    - run:
-        name: ad-hoc
-        command: printenv|sort
-    - run:
-        name: ad-hoc
-        command: cat /etc/os-release
+        command: |
+          git version; git config --list
+          printenv|sort
+          cat /etc/os-release
+          docker ps --all
+          yarn cache clean
     # - *attach_workspace
     # - restore_cache:
     #     name: Restore node_modules cache
