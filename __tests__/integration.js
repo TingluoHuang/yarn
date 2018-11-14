@@ -89,7 +89,7 @@ async function runYarn(args: Array<string> = [], options: Object = {}): Promise<
   const {stdout, stderr} = await execa.shell(sh`${path.resolve(__dirname, '../bin/yarn')} ${args}`, options);
   
   console.log('Finished:');
-  Date.now();
+  console.log(Date.now());
   return [stdout, stderr];
 }
 
@@ -142,7 +142,7 @@ async function runYarn(args: Array<string> = [], options: Object = {}): Promise<
 
 test('--mutex network', async () => {
   console.log('Start:');
-  Date.now();
+  console.log(Date.now());
   const cwd = await makeTemp();
 
   const port = getRandomPort();
@@ -151,7 +151,7 @@ test('--mutex network', async () => {
   const promises = [];
   
   console.log('Start loop:');
-  Date.now();
+  console.log(Date.now());
   for (let t = 0; t < 40; ++t) {
     const subCwd = path.join(cwd, String(t));
 
@@ -164,7 +164,7 @@ test('--mutex network', async () => {
     );
     
     console.log('Start loop:' + t.toString());
-    Date.now();
+    console.log(Date.now());
     promises.push(runYarn(['run', 'test', '100'], {cwd: subCwd}));
   }
 
