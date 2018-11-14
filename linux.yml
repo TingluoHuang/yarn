@@ -22,10 +22,10 @@ jobs:
       ls -lhR lib
     displayName: 'Install and build'
 
-  - script: |
-      cd packages/pkg-tests
-      yarn
-    displayName: 'Install the acceptance tests'
+  #- script: |
+  #    cd packages/pkg-tests
+  #    yarn
+  #  displayName: 'Install the acceptance tests'
 
-  - script: yarn test-only --maxWorkers 3
+  - script: yarn test-only
     displayName: 'Run the acceptance tests'
