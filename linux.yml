@@ -27,5 +27,5 @@ jobs:
   #    yarn
   #  displayName: 'Install the acceptance tests'
 
-  - script: yarn test-only
+  - script: yarn test-only -u
     displayName: 'Run the acceptance tests'
