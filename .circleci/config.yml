@@ -33,7 +33,7 @@ run_steps: &run_steps
         name: Tests
         command: |
           # Limit maxWorkers to 3 to avoid OOM on CircleCI
-          yarn test-only --maxWorkers 3
+          yarn test-only --maxWorkers 1
 
 default_filters: &default_filters
   tags:
