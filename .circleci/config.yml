@@ -9,7 +9,7 @@ attach_workspace: &attach_workspace
   attach_workspace:
       at: ~/project
 
-install_steps: &install_steps
+run_steps: &run_steps
   steps:
     - checkout
     - run:
@@ -43,28 +43,18 @@ install_steps: &install_steps
     #     root: ~/project
     #     paths:
     #       - yarn
-
-test_build: &test_build
-  run:
-    name: Build Yarn for testing
-    command: |
-      if [ "$CIRCLE_BRANCH" == 'master' ]; then
-        ./scripts/set-dev-version.js
-      fi;
-      yarn build
-
-test_run: &test_run
-  run:
-    name: Tests
-    command: |
-      # Limit maxWorkers to 3 to avoid OOM on CircleCI
-      yarn test-only --maxWorkers 3
-
-test_steps: &test_steps
-  steps:
-    # - *attach_workspace
-    - *test_build
-    - *test_run
+    - run:
+        name: Build Yarn for testing
+        command: |
+          if [ "$CIRCLE_BRANCH" == 'master' ]; then
+            ./scripts/set-dev-version.js
+          fi;
+          yarn build
+    - run:
+        name: Tests
+        command: |
+          # Limit maxWorkers to 3 to avoid OOM on CircleCI
+          yarn test-only --maxWorkers 3
 
 default_filters: &default_filters
   tags:
@@ -73,8 +63,7 @@ default_filters: &default_filters
 jobs:
   test-linux-node10:
     <<: *docker_defaults
-    <<: *install_steps
-    <<: *test_steps
+    <<: *run_steps
 
 workflows:
   version: 2
