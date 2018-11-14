@@ -20,8 +20,8 @@ install_steps: &install_steps
         command: printenv|sort
     - run:
         name: ad-hoc
-        command: cat /etc/os-release
-    - *attach_workspace
+        command: cat /etc/os-releases
+    # - *attach_workspace
     # - restore_cache:
     #     name: Restore node_modules cache
     #     keys:
@@ -62,7 +62,7 @@ test_run: &test_run
 
 test_steps: &test_steps
   steps:
-    - *attach_workspace
+    # - *attach_workspace
     - *test_build
     - *test_run
 
@@ -71,11 +71,9 @@ default_filters: &default_filters
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
 jobs:
-  install:
-    <<: *docker_defaults
-    <<: *install_steps
   test-linux-node10:
     <<: *docker_defaults
+    <<: *install_steps
     <<: *test_steps
 
 workflows:
@@ -83,8 +81,6 @@ workflows:
 
   install-test-build-and-publish:
     jobs:
-      - install:
-          filters: *default_filters
       # - lint:
       #     filters: *default_filters
       #     requires:
@@ -99,5 +95,3 @@ workflows:
 #            - install
       - test-linux-node10:
           filters: *default_filters
-          requires:
-            - install
