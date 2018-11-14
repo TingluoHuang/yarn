@@ -5,11 +5,6 @@ docker_defaults: &docker_defaults
     - image: yarnpkg/dev:latest
   working_directory: ~/project/yarn
 
-macos_defaults: &macos_defaults
-  macos:
-    xcode: "9.0"
-  working_directory: ~/project/yarn
-
 attach_workspace: &attach_workspace
   attach_workspace:
       at: ~/project
@@ -17,6 +12,12 @@ attach_workspace: &attach_workspace
 install_steps: &install_steps
   steps:
     - checkout
+    - run:
+        name: ad-hoc
+        command: git version; git config --list
+    - run:
+        name: ad-hoc
+        command: printenv|sort
     - *attach_workspace
     - restore_cache:
         name: Restore node_modules cache
@@ -49,13 +50,6 @@ test_build: &test_build
       fi;
       yarn build
 
-test_e2e_steps: &test_e2e_steps
-  steps:
-    - checkout
-    - run:
-        command: cd end_to_end_tests/data && ./run-ubuntu.sh
-
-
 test_run: &test_run
   run:
     name: Tests
@@ -68,25 +62,6 @@ test_steps: &test_steps
     - *attach_workspace
     - *test_build
     - *test_run
-
-pkg_tests_install: &pkg_tests_install
-  run:
-    name: Install the dependencies for the pkg-tests testsuite
-    command: |
-        ./bin/yarn --cwd packages/pkg-tests
-
-pkg_tests_run: &pkg_tests_run
-  run:
-    name: Tests (pkg-tests testsuite)
-    command: |
-        ./bin/yarn --cwd packages/pkg-tests jest yarn.test.js
-
-pkg_tests: &pkg_tests
-  steps:
-    - *attach_workspace
-    - *test_build
-    - *pkg_tests_install
-    - *pkg_tests_run
 
 default_filters: &default_filters
   tags:
@@ -122,14 +97,6 @@ jobs:
           root: ~/project
           paths:
             - yarn
-#  test-pkg-tests-linux-node10:
-#    <<: *docker_defaults
-#    docker:
-#      - image: node:10
-#    <<: *pkg_tests
-#  test-pkg-tests-linux-node8:
-#    <<: *docker_defaults
-#    <<: *pkg_tests
   test-linux-node10:
     <<: *docker_defaults
     <<: *test_steps
