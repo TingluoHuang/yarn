@@ -7,7 +7,7 @@ jobs:
   pool: default
   workspace:
     clean: all
-  container: yarn
+  #container: yarn
   steps:
 
   - task: NodeTool@0
