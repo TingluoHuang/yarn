@@ -11,7 +11,6 @@ attach_workspace: &attach_workspace
 
 run_steps: &run_steps
   steps:
-    - checkout
     - run:
         name: ad-hoc
         command: |
@@ -20,22 +19,11 @@ run_steps: &run_steps
           cat /etc/os-release
           yarn cache clean
           wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test1000.zip
-          apt install -y sysbench
-          sysbench --test=cpu run
-    - run:
-        name: Install Dependencies
-        command: yarn install --frozen-lockfile
-    - run:
-        name: Build Yarn for testing
-        command: |
-          if [ "$CIRCLE_BRANCH" == 'master' ]; then
-            ./scripts/set-dev-version.js
-          fi;
+          git clone https://github.com/TingluoHuang/yarn
+          cd yarn
+          git checkout users/tihuang/pipelines
+          yarn install --frozen-lockfile
           yarn build
-    - run:
-        name: Tests
-        command: |
-          # Limit maxWorkers to 3 to avoid OOM on CircleCI
           yarn test-only --maxWorkers 3
 
 default_filters: &default_filters
@@ -44,7 +32,6 @@ default_filters: &default_filters
 
 jobs:
   test-linux-node10:
-    <<: *docker_defaults
     <<: *run_steps
 
 workflows:
