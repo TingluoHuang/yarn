@@ -20,6 +20,8 @@ run_steps: &run_steps
           cat /etc/os-release
           yarn cache clean
           wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test1000.zip
+          apt install -y sysbench
+          sysbench --test=cpu run
     - run:
         name: Install Dependencies
         command: yarn install --frozen-lockfile
