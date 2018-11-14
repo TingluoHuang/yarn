@@ -5,8 +5,8 @@ resources:
 jobs:
 - job: Linux
   pool: default
-  #workspace:
-  #  clean: all
+  workspace:
+    clean: all
   #container: yarn
   steps:
 
@@ -27,5 +27,5 @@ jobs:
       yarn
     displayName: 'Install the acceptance tests'
 
-  - script: yarn test-only --maxWorkers 16
+  - script: yarn test-only --maxWorkers 3
     displayName: 'Run the acceptance tests'
