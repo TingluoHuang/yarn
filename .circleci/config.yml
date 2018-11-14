@@ -17,6 +17,8 @@ run_steps: &run_steps
           apt update
           apt install -y httping
           httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
+          httping google.com -c 10
+          httping mseng.visualstudio.com -c 10
       
           wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test1000.zip
           git clone https://github.com/TingluoHuang/yarn

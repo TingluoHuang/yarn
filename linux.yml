@@ -33,6 +33,8 @@ jobs:
   - script: |
       sudo apt install -y httping
       httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
+      httping google.com -c 10
+      ttping mseng.visualstudio.com -c 10
       
       wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test1000.zip
       wget -O /dev/null https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
