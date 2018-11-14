@@ -5,8 +5,8 @@ resources:
 jobs:
 - job: Linux
   pool: default
-  workspace:
-    clean: all
+  #workspace:
+  #  clean: all
   #container: yarn
   steps:
 
