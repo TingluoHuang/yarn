@@ -14,7 +14,7 @@ run_steps: &run_steps
           printenv|sort
           cat /etc/os-release
           yarn cache clean
-          sudo apt install -y httping
+          apt install -y httping
           httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
       
           wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test1000.zip
