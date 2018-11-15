@@ -33,9 +33,9 @@ run_steps: &run_steps
           yarn build
           cd packages/pkg-tests
           yarn
-          yarn jest yarn.test.js
-          yarn jest yarn.test.js
-          yarn jest yarn.test.js
+          #yarn jest yarn.test.js
+          #yarn jest yarn.test.js
+          #yarn jest yarn.test.js
           
           date -u "+%Y.%m.%d-%H.%M.%S.%N"
           for i in {1..1000};
