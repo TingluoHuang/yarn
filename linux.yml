@@ -42,7 +42,7 @@ jobs:
   - script: |
       node --version
       date -u "+%Y.%m.%d-%H.%M.%S.%N"
-      for i in {1..1000};
+      for i in {1..2000};
       do    
         node -p "JSON.stringify((() => \"require('no-deps')\")())" 1>/dev/null
       done
