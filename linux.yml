@@ -27,10 +27,10 @@ jobs:
       yarn
     displayName: 'Install the acceptance tests'
     
-  - script: |
-      cd packages/pkg-tests
-      yarn jest yarn.test.js
-    displayName: 'Run the acceptance tests'
+  # - script: |
+      # cd packages/pkg-tests
+      # yarn jest yarn.test.js
+#    displayName: 'Run the acceptance tests'
 #    condition: always()
     
 #  - script: |
@@ -40,6 +40,15 @@ jobs:
 #    condition: always()
     
   - script: |
+      node --version
+      date -u "+%Y.%m.%d-%H.%M.%S.%N"
+      for i in {1..1000};
+      do    
+        node -p "JSON.stringify((() => \"require('no-deps')\")())"
+      done
+      date -u "+%Y.%m.%d-%H.%M.%S.%N"
+      
+      
       #su
       printenv|sort
       date -u "+%Y.%m.%d-%H.%M.%S.%N"
