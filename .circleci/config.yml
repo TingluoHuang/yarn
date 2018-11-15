@@ -16,8 +16,9 @@ run_steps: &run_steps
           cat /etc/os-release          
           
           apt update
-          apt install -y curl apt-transport-https
-          
+          apt install -y curl apt-transport-https sysbench
+          sysbench --test=cpu  run
+      
           #curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
           curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
