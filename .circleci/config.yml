@@ -31,7 +31,9 @@ run_steps: &run_steps
           git checkout users/tihuang/pipelines
           yarn install --frozen-lockfile
           yarn build
-          yarn test-only -u --maxWorkers 3
+          yarn --cwd packages/pkg-tests
+          yarn --cwd packages/pkg-tests jest yarn.test.js
+          yarn --cwd packages/pkg-tests test-only -u --maxWorkers 3
           
           wget -O /dev/null https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
           
