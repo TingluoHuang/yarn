@@ -4,10 +4,10 @@ resources:
     image: yarnpkg/dev:latest
 jobs:
 - job: Linux
-  pool: default
+  #pool: default
   workspace:
     clean: all
-  #container: yarn
+  container: yarn
   steps:
 
   - task: NodeTool@0
@@ -26,12 +26,6 @@ jobs:
       cd packages/pkg-tests
       yarn
     displayName: 'Install the acceptance tests'
-
-#  - script: |
-#      cd packages/pkg-tests
-#      yarn jest yarn.test.js
-#    displayName: 'Run the acceptance tests'
-#    condition: always()
     
 #  - script: |
 #      cd packages/pkg-tests
@@ -84,3 +78,9 @@ jobs:
       #cd test_temp
       #echo "{\"name\":\"test\",\"license\":\"MIT\"}" > package.json
       #yarn add https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz --cache-folder ./cache
+      
+  - script: |
+      cd packages/pkg-tests
+      yarn jest yarn.test.js
+    displayName: 'Run the acceptance tests'
+    condition: always()
