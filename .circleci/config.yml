@@ -31,7 +31,10 @@ run_steps: &run_steps
           git checkout users/tihuang/pipelines
           yarn install --frozen-lockfile
           yarn build
-          yarn --cwd packages/pkg-tests
+          yarn --cwd packages/pkg-tests jest yarn.test.js
+          
+          yarn --cwd packages/pkg-tests jest yarn.test.js
+          
           yarn --cwd packages/pkg-tests jest yarn.test.js
           #yarn --cwd packages/pkg-tests test-only -u --maxWorkers 3
           
