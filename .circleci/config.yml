@@ -37,6 +37,12 @@ run_steps: &run_steps
           yarn jest yarn.test.js
           yarn jest yarn.test.js
           
+          date -u "+%Y.%m.%d-%H.%M.%S.%N"
+          for i in {1..1000};
+          do    
+            yarn --version; 
+          done
+          date -u "+%Y.%m.%d-%H.%M.%S.%N"
           #yarn --cwd packages/pkg-tests test-only -u --maxWorkers 3
           
           #wget -O /dev/null https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
