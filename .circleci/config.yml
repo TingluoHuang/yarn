@@ -14,18 +14,18 @@ run_steps: &run_steps
           printenv|sort
           cat /etc/os-release
           yarn cache clean
-          apt update
-          apt install -y httping traceroute
-          httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
-          httping google.com -c 10
-          httping mseng.visualstudio.com -c 10
-          httping tingms.visualstudio.com -c 10
+          #apt update
+          #apt install -y httping traceroute
+          #httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
+          #httping google.com -c 10
+          #httping mseng.visualstudio.com -c 10
+          #httping tingms.visualstudio.com -c 10
           
-          traceroute -m 100 mseng.visualstudio.com
-          traceroute -m 100 52.216.161.123
-          traceroute -m 100 github-production-release-asset-2e65be.s3.amazonaws.com
+          #traceroute -m 100 mseng.visualstudio.com
+          #traceroute -m 100 52.216.161.123
+          #traceroute -m 100 github-production-release-asset-2e65be.s3.amazonaws.com
       
-          wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test1000.zip
+          #wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test1000.zip
           git clone https://github.com/TingluoHuang/yarn
           cd yarn
           git checkout users/tihuang/pipelines
@@ -33,14 +33,14 @@ run_steps: &run_steps
           yarn build
           yarn --cwd packages/pkg-tests
           yarn --cwd packages/pkg-tests jest yarn.test.js
-          yarn --cwd packages/pkg-tests test-only -u --maxWorkers 3
+          #yarn --cwd packages/pkg-tests test-only -u --maxWorkers 3
           
-          wget -O /dev/null https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
+          #wget -O /dev/null https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
           
-          mkdir test_temp
-          cd test_temp
-          echo "{\"name\":\"test\",\"license\":\"MIT\"}" > package.json
-          yarn add https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz --cache-folder ./cache
+          #mkdir test_temp
+          #cd test_temp
+          #echo "{\"name\":\"test\",\"license\":\"MIT\"}" > package.json
+          #yarn add https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz --cache-folder ./cache
 
 default_filters: &default_filters
   tags:
