@@ -16,7 +16,7 @@ run_steps: &run_steps
           yarn cache clean
           
           apt update
-          apt install -y curl
+          apt install -y curl apt-transport-https
           
           curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
@@ -50,6 +50,14 @@ run_steps: &run_steps
             yarn --version; 
           done
           date -u "+%Y.%m.%d-%H.%M.%S.%N"
+          
+          date -u "+%Y.%m.%d-%H.%M.%S.%N"
+          for i in {1..1000};
+          do    
+            echo yarn >> test.log
+          done
+          date -u "+%Y.%m.%d-%H.%M.%S.%N"
+          
           #yarn --cwd packages/pkg-tests test-only -u --maxWorkers 3
           
           #wget -O /dev/null https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
