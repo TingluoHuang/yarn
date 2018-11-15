@@ -72,9 +72,3 @@ beforeEach(async () => {
 });
 
 basicSpecs(pkgDriver);
-lockSpecs(pkgDriver);
-scriptSpecs(pkgDriver);
-workspaceSpecs(pkgDriver);
-pnpSpecs(pkgDriver);
-pnpapiV1Specs(pkgDriver);
-dragonSpecs(pkgDriver);
