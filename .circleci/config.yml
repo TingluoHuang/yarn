@@ -18,12 +18,12 @@ run_steps: &run_steps
           apt update
           apt install -y curl apt-transport-https
           
-          curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
+          #curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
           curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
           apt update
-          apt install -y httping traceroute yarn nodejs
+          apt install -y httping traceroute yarn
           
           #sudo rm -rf /usr/bin/node
           #sudo ln -s "$(which nodejs)" /usr/bin/node
