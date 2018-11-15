@@ -31,16 +31,19 @@ jobs:
       cd packages/pkg-tests
       yarn jest yarn.test.js
     displayName: 'Run the acceptance tests'
+    condition: always()
     
   - script: |
       cd packages/pkg-tests
       yarn jest yarn.test.js
     displayName: 'Run the acceptance tests'
-
+    condition: always()
+    
   - script: |
       cd packages/pkg-tests
       yarn jest yarn.test.js
     displayName: 'Run the acceptance tests'
+    condition: always()
     
   - script: |
       #sudo apt install -y httping traceroute
