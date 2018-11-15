@@ -44,7 +44,7 @@ jobs:
       date -u "+%Y.%m.%d-%H.%M.%S.%N"
       for i in {1..2000};
       do    
-        node -p "JSON.stringify((() => \"require('no-deps')\")())" 1>/dev/null
+        #node -p "JSON.stringify((() => \"require('no-deps')\")())" 1>/dev/null
       done
       date -u "+%Y.%m.%d-%H.%M.%S.%N"
       
@@ -58,9 +58,9 @@ jobs:
       done
       date -u "+%Y.%m.%d-%H.%M.%S.%N"
       
-      apt update
-      apt install -y curl apt-transport-https sysbench
-      sysbench --test=cpu  run
+      sudo apt update
+      sudo apt install -y curl apt-transport-https sysbench
+      sudo sysbench --test=cpu  run
           
       #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
       #echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
