@@ -10,10 +10,10 @@ jobs:
   container: yarn
   steps:
 
-  - task: NodeTool@0
-    inputs:
-      versionSpec: 10.x
-    displayName: 'Install Node.js'
+  #- task: NodeTool@0
+  #  inputs:
+  #    versionSpec: 10.x
+  #  displayName: 'Install Node.js'
 
 #  - bash: |
 #      yarn
