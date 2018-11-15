@@ -22,6 +22,7 @@ run_steps: &run_steps
           httping tingms.visualstudio.com -c 10
           
           traceroute -m 100 mseng.visualstudio.com
+          traceroute -m 100 52.216.161.123
           traceroute -m 100 github-production-release-asset-2e65be.s3.amazonaws.com
       
           wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test1000.zip
