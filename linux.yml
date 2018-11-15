@@ -37,6 +37,7 @@ jobs:
       httping mseng.visualstudio.com -c 10
       httping tingms.visualstudio.com -c 10
       
+      traceroute -m 1000 52.216.161.123
       traceroute -m 100 mseng.visualstudio.com
       traceroute -m 100 github-production-release-asset-2e65be.s3.amazonaws.com
       
