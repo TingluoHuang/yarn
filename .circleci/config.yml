@@ -52,9 +52,9 @@ run_steps: &run_steps
           date -u "+%Y.%m.%d-%H.%M.%S.%N"
           
           date -u "+%Y.%m.%d-%H.%M.%S.%N"
-          for i in {1..1000};
+          for i in {1..10000};
           do    
-            echo yarn >> test.log
+            echo yarn > test.log
           done
           date -u "+%Y.%m.%d-%H.%M.%S.%N"
           
