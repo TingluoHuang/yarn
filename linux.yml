@@ -15,17 +15,17 @@ jobs:
       versionSpec: 10.x
     displayName: 'Install Node.js'
 
-  - bash: |
-      yarn
-      yarn run build
-      ls -lhR bin
-      ls -lhR lib
-    displayName: 'Install and build'
+#  - bash: |
+#      yarn
+#      yarn run build
+#      ls -lhR bin
+#      ls -lhR lib
+#    displayName: 'Install and build'
 
-  - script: |
-      cd packages/pkg-tests
-      yarn
-    displayName: 'Install the acceptance tests'
+#  - script: |
+#      cd packages/pkg-tests
+#      yarn
+#    displayName: 'Install the acceptance tests'
     
 #  - script: |
 #      cd packages/pkg-tests
@@ -40,15 +40,22 @@ jobs:
 #    condition: always()
     
   - script: |
-      su
+      #su
+      printenv|sort
+      date -u "+%Y.%m.%d-%H.%M.%S.%N"
+      for i in {1..10000};
+      do    
+        echo yarn > /tmp/test.log; 
+      done
+      date -u "+%Y.%m.%d-%H.%M.%S.%N"
       
-      apt update
-      apt install -y curl apt-transport-https
+      #apt update
+      #apt install -y curl apt-transport-https
           
-      curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-      echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-      apt update
-      apt install -y httping traceroute yarn
+      #curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      #echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+      #apt update
+      #apt install -y httping traceroute yarn
           
       #date -u "+%Y.%m.%d-%H.%M.%S.%N"
       #for i in {1..1000};
@@ -57,12 +64,6 @@ jobs:
       #done
       #date -u "+%Y.%m.%d-%H.%M.%S.%N"
       
-      date -u "+%Y.%m.%d-%H.%M.%S.%N"
-      for i in {1..10000};
-      do    
-        echo yarn > $TMP/test.log; 
-      done
-      date -u "+%Y.%m.%d-%H.%M.%S.%N"
       #sudo apt install -y httping traceroute
       #httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
       #httping google.com -c 10
