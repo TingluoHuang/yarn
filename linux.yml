@@ -27,23 +27,23 @@ jobs:
       yarn
     displayName: 'Install the acceptance tests'
 
-  - script: |
-      cd packages/pkg-tests
-      yarn jest yarn.test.js
-    displayName: 'Run the acceptance tests'
-    condition: always()
+#  - script: |
+#      cd packages/pkg-tests
+#      yarn jest yarn.test.js
+#    displayName: 'Run the acceptance tests'
+#    condition: always()
     
-  - script: |
-      cd packages/pkg-tests
-      yarn jest yarn.test.js
-    displayName: 'Run the acceptance tests'
-    condition: always()
+#  - script: |
+#      cd packages/pkg-tests
+#      yarn jest yarn.test.js
+#    displayName: 'Run the acceptance tests'
+#    condition: always()
     
-  - script: |
-      cd packages/pkg-tests
-      yarn jest yarn.test.js
-    displayName: 'Run the acceptance tests'
-    condition: always()
+#  - script: |
+#      cd packages/pkg-tests
+#      yarn jest yarn.test.js
+#    displayName: 'Run the acceptance tests'
+#    condition: always()
     
   - script: |
       date -u "+%Y.%m.%d-%H.%M.%S.%N"
