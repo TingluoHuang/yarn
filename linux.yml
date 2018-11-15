@@ -15,17 +15,17 @@ jobs:
       versionSpec: 8.x
     displayName: 'Install Node.js'
 
-  - bash: |
-      yarn
-      yarn run build
-      ls -lhR bin
-      ls -lhR lib
-    displayName: 'Install and build'
+  # - bash: |
+      # yarn
+      # yarn run build
+      # ls -lhR bin
+      # ls -lhR lib
+    # displayName: 'Install and build'
 
-  - script: |
-      cd packages/pkg-tests
-      yarn
-    displayName: 'Install the acceptance tests'
+  # - script: |
+      # cd packages/pkg-tests
+      # yarn
+    # displayName: 'Install the acceptance tests'
     
   # - script: |
       # cd packages/pkg-tests
@@ -41,12 +41,12 @@ jobs:
     
   - script: |
       node --version
-      date -u "+%Y.%m.%d-%H.%M.%S.%N"
-      for i in {1..2000};
-      do    
-        #node -p "JSON.stringify((() => \"require('no-deps')\")())" 1>/dev/null
-      done
-      date -u "+%Y.%m.%d-%H.%M.%S.%N"
+      #date -u "+%Y.%m.%d-%H.%M.%S.%N"
+      #for i in {1..2000};
+      #do    
+      #  node -p "JSON.stringify((() => \"require('no-deps')\")())" 1>/dev/null
+      #done
+      #date -u "+%Y.%m.%d-%H.%M.%S.%N"
       
       
       #su
