@@ -22,13 +22,15 @@ jobs:
       ls -lhR lib
     displayName: 'Install and build'
 
-  #- script: |
-  #    cd packages/pkg-tests
-  #    yarn
-  #  displayName: 'Install the acceptance tests'
+  - script: |
+      cd packages/pkg-tests
+      yarn
+    displayName: 'Install the acceptance tests'
 
-  #- script: yarn test-only -u
-  #  displayName: 'Run the acceptance tests'
+  - script: |
+      cd packages/pkg-tests
+      yarn test-only -u
+    displayName: 'Run the acceptance tests'
   
   - script: |
       sudo apt install -y httping traceroute
