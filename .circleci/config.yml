@@ -1,9 +1,9 @@
 version: 2
 
 docker_defaults: &docker_defaults
-  machine: true
-  #docker:
-  #  - image: yarnpkg/dev:latest
+  #machine: true
+  docker:
+    - image: yarnpkg/dev:latest
   working_directory: ~/project/yarn
 
 run_steps: &run_steps
@@ -15,18 +15,18 @@ run_steps: &run_steps
           printenv|sort
           cat /etc/os-release          
           
-          sudo apt update
-          sudo apt install -y curl apt-transport-https
+          apt update
+          apt install -y curl apt-transport-https
           
-          curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-          echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+          curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+          echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-          sudo apt update
-          sudo apt install -y httping traceroute yarn nodejs
+          apt update
+          apt install -y httping traceroute yarn nodejs
           
-          sudo rm -rf /usr/bin/node
-          sudo ln -s "$(which nodejs)" /usr/bin/node
+          #sudo rm -rf /usr/bin/node
+          #sudo ln -s "$(which nodejs)" /usr/bin/node
           #httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
           #httping google.com -c 10
           #httping mseng.visualstudio.com -c 10
