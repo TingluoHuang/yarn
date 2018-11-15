@@ -24,6 +24,8 @@ run_steps: &run_steps
 
           sudo apt update
           sudo apt install -y httping traceroute yarn nodejs
+          
+          sudo ln -s "$(which nodejs)" /usr/bin/node
           #httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
           #httping google.com -c 10
           #httping mseng.visualstudio.com -c 10
