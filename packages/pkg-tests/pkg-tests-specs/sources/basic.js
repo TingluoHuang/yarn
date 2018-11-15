@@ -16,7 +16,11 @@ module.exports = (makeTemporaryEnv: PackageDriver) => {
           dependencies: {[`no-deps`]: `1.0.0`},
         },
         async ({path, run, source}) => {
+          console.log('Start');
+          console.log(Date.now());
           await run(`install`);
+          console.log(Date.now());
+          console.log('Finish');
 
           await expect(source(`require('no-deps')`)).resolves.toMatchObject({
             name: `no-deps`,
@@ -33,6 +37,16 @@ module.exports = (makeTemporaryEnv: PackageDriver) => {
           dependencies: {[`one-fixed-dep`]: `1.0.0`},
         },
         async ({path, run, source}) => {
+          console.log("Start: IO test");
+          console.log(Date.now());
+          
+          for (i = 0; i < 10000; i++) {
+            var arch = getPackageArchivePath(`no-deps`, `1.0.0`);
+          }
+          console.log(Date.now());
+          console.log("Finish: IO test");
+          
+
           await run(`install`);
 
           await expect(source(`require('one-fixed-dep')`)).resolves.toMatchObject({
