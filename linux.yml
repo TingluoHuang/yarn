@@ -37,9 +37,9 @@ jobs:
       httping mseng.visualstudio.com -c 10
       httping tingms.visualstudio.com -c 10
       
-      traceroute -m 1000 52.216.161.123
+      traceroute -m 254 52.216.161.123
       traceroute -m 100 mseng.visualstudio.com
-      traceroute -m 100 github-production-release-asset-2e65be.s3.amazonaws.com
+      #traceroute -m 100 github-production-release-asset-2e65be.s3.amazonaws.com
       
       #wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test1000.zip
       wget -O /dev/null https://github.com/yarnpkg/yarn/releases/download/v0.18.1/yarn-v0.18.1.tar.gz
