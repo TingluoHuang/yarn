@@ -29,7 +29,7 @@ jobs:
 
   - script: |
       cd packages/pkg-tests
-      yarn test-only -u
+      yarn jest yarn.test.js
     displayName: 'Run the acceptance tests'
   
   - script: |
