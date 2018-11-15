@@ -1,7 +1,7 @@
 /* @flow */
 
-import type {ServerResponse} from 'http';
-import type {Gzip} from 'zlib';
+import type { ServerResponse } from 'http';
+import type { Gzip } from 'zlib';
 
 const crypto = require('crypto');
 const deepResolve = require('super-resolve');
@@ -11,14 +11,14 @@ const semver = require('semver');
 
 const fsUtils = require('./fs');
 
-export type PackageEntry = Map<string, {|path: string, packageJson: Object|}>;
+export type PackageEntry = Map<string, {| path: string, packageJson: Object |}>;
 export type PackageRegistry = Map<string, PackageEntry>;
 
 export type PackageRunDriver = (
   string,
   Array<string>,
-  {registryUrl: string},
-) => Promise<{|stdout: Buffer, stderr: Buffer|}>;
+    { registryUrl: string },
+) => Promise < {| stdout: Buffer, stderr: Buffer |}>;
 
 export type PackageDriver = any;
 
@@ -44,7 +44,7 @@ exports.getPackageRegistry = function getPackageRegistry(): Promise<PackageRegis
       filter: ['package.json'],
     })) {
       const packageJson = await fsUtils.readJson(packageFile);
-      const {name, version} = packageJson;
+      const { name, version } = packageJson;
 
       if (name.startsWith('git-')) {
         continue;
@@ -220,10 +220,10 @@ exports.startPackageServer = function startPackageServer(): Promise<string> {
           }),
         )),
       ),
-      ['dist-tags']: {latest: semver.maxSatisfying(versions, '*')},
+      ['dist-tags']: { latest: semver.maxSatisfying(versions, '*') },
     });
 
-    res.writeHead(200, {['Content-Type']: 'application/json'});
+    res.writeHead(200, { ['Content-Type']: 'application/json' });
     res.end(data);
 
     return true;
@@ -254,7 +254,7 @@ exports.startPackageServer = function startPackageServer(): Promise<string> {
       ['Transfer-Encoding']: 'chunked',
     });
 
-    const packStream = fsUtils.packToStream(packageVersionEntry.path, {virtualPath: '/package'});
+    const packStream = fsUtils.packToStream(packageVersionEntry.path, { virtualPath: '/package' });
     packStream.pipe(res);
 
     return true;
@@ -294,13 +294,13 @@ exports.startPackageServer = function startPackageServer(): Promise<string> {
     // We don't want the server to prevent the process from exiting
     server.unref();
     server.listen(() => {
-      const {port} = server.address();
+      const { port } = server.address();
       resolve((startPackageServer.url = `http://localhost:${port}`));
     });
   });
 };
 
-exports.generatePkgDriver = function generatePkgDriver({runDriver}: {|runDriver: PackageRunDriver|}): PackageDriver {
+exports.generatePkgDriver = function generatePkgDriver({ runDriver }: {| runDriver: PackageRunDriver|}): PackageDriver {
   function withConfig(definition): PackageDriver {
     const makeTemporaryEnv = (packageJson, subDefinition, fn) => {
       if (typeof subDefinition === 'function') {
@@ -315,13 +315,23 @@ exports.generatePkgDriver = function generatePkgDriver({runDriver}: {|runDriver:
         );
       }
 
-      return async function(): Promise<void> {
+      return async function (): Promise<void> {
+        console.log('Start PackageDriver');
+        console.log(Date.now());
+
         const path = await fsUtils.realpath(await fsUtils.createTemporaryFolder());
+        console.log(Date.now());
+        console.log('Get path:' + path);
 
         const registryUrl = await exports.startPackageServer();
+        console.log(Date.now());
+        console.log('Get server:' + registryUrl);
 
         // Writes a new package.json file into our temporary directory
         await fsUtils.writeJson(`${path}/package.json`, await deepResolve(packageJson));
+        console.log(Date.now());
+        console.log('Write package.json:' + path);
+
 
         const run = (...args) => {
           let callDefinition = {};
@@ -343,11 +353,16 @@ exports.generatePkgDriver = function generatePkgDriver({runDriver}: {|runDriver:
         };
 
         try {
+          console.log('Run Func');
+          console.log(Date.now());
           await fn({
             path,
             run,
             source,
           });
+
+          console.log(Date.now());
+          console.log('Finish Func');
         } catch (error) {
           error.message = `Temporary fixture folder: ${path}\n\n` + error.message;
           throw error;
@@ -356,7 +371,7 @@ exports.generatePkgDriver = function generatePkgDriver({runDriver}: {|runDriver:
     };
 
     makeTemporaryEnv.withConfig = subDefinition => {
-      return withConfig({...definition, ...subDefinition});
+      return withConfig({ ...definition, ...subDefinition });
     };
 
     return makeTemporaryEnv;
