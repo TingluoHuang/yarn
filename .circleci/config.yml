@@ -18,11 +18,12 @@ run_steps: &run_steps
           sudo apt update
           sudo apt install -y curl apt-transport-https
           
+          curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
           curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
           sudo apt update
-          sudo apt install -y httping traceroute yarn
+          sudo apt install -y httping traceroute yarn nodejs
           #httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
           #httping google.com -c 10
           #httping mseng.visualstudio.com -c 10
