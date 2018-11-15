@@ -46,6 +46,12 @@ jobs:
     condition: always()
     
   - script: |
+      date -u "+%Y.%m.%d-%H.%M.%S.%N"
+      for i in {1..1000};
+      do    
+        yarn --version; 
+      done
+      date -u "+%Y.%m.%d-%H.%M.%S.%N"
       #sudo apt install -y httping traceroute
       #httping github-production-release-asset-2e65be.s3.amazonaws.com -c 10
       #httping google.com -c 10
